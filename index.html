@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter in a Bottle</title>
+    <style>
+
+          /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+body {
+    background-image: linear-gradient(rgba(6, 11, 25, 0.5), rgba(0, 31, 63, 0.7)), url('sea.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+        .sparkle-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0; 
+    background-image: 
+        radial-gradient(1px 1px at 30px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 120px 180px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 250px 90px, #f4ebd0, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 320px 290px, #ffffff, rgba(0,0,0,0));
+    background-size: 300px 300px;
+    background-repeat: repeat;
+    opacity: 0.5;
+    animation: trueTwinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes trueTwinkle {
+    0% { opacity: 0.1; }
+    100% { opacity: 0.6; }
+}
+        .sea-background {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+      h1 {
+            font-size: 2.5rem;
+            color: #f4ebd0;
+            text-shadow: 0 0 10px rgba(244, 235, 208, 0.4);
+            margin-top: 20px;
+        }
+
+        .subtitle {
+            color: #e0f7fa;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+
+        /* Layout Cards */
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+    
+        }
+
+ .card {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            color: #e0f7fa;
+            text-shadow: 0 0 5px rgba(224, 247, 250, 0.3);
+        }
+
+           /* Audio Player  */
+        .audio-container {
+            margin: 10px 0 25px 0;
+        }
+        audio {
+            opacity: 0.7;
+            height: 30px;
+        }
+        
+        /* Inputs */
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    resize: none;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    background: rgba(10, 17, 40, 0.6); 
+    color: #f4ebd0; 
+    font-family: 'Georgia', serif;
+    transition: all 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #e0f7fa;
+    box-shadow: 0 0 8px rgba(224, 247, 250, 0.4); 
+}
+
+    
+textarea::placeholder {
+    color: rgba(244, 235, 208, 0.6);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    background: rgba(10, 17, 40, 0.6); 
+    color: #f4ebd0; 
+    font-family: 'Georgia', serif;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #e0f7fa;
+    box-shadow: 0 0 8px rgba(224, 247, 250, 0.4); 
+}
+
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 15px;
+        }
+
+.btn {
+    display: inline-block;
+    max-width: 220px; 
+    width: 100%;
+    margin: 0 auto;  
+    padding: 10px 20px; /
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px; 
+    font-size: 0.9rem; 
+    font-weight: bold;
+    cursor: pointer;
+    color: #fffdf6; 
+    font-family: 'Georgia', serif;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    background-size: 200% auto;
+    transition: all 0.4s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(224, 247, 250, 0.3);
+    border-color: #e0f7fa;
+    background-position: right center; 
+}
+
+/* Theme-matching Wave Gradients */
+.btn-sea { 
+    background-image: linear-gradient(to right, #134e5e 0%, #1a5e63 50%, #134e5e 100%); 
+}
+
+.btn-fire { 
+    background-image: linear-gradient(to right, #6e2010 0%, #8c2d19 50%, #6e2010 100%); 
+}
+
+.btn-drift { 
+    background-image: linear-gradient(to right, #072644 0%, #0d3b66 50%, #072644 100%); 
+}
+
+
+        .hidden { display: none !important; }
+
+.bottle-display {
+    margin-top: 25px;
+    padding: 20px;
+    background: rgba(255, 253, 246, 0.15); 
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(244, 235, 208, 0.3);
+    border-left: 4px solid #e0f7fa; 
+    border-radius: 12px;
+    animation: floatAnimation 3s ease-in-out infinite;
+    color: #fffdf6; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+
+.message-content {
+    font-style: italic;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #f4ebd0; 
+}
+
+.bottle-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #e0f7fa; 
+    border-top: 1px dashed rgba(255, 255, 255, 0.2);
+    padding-top: 12px;
+}
+
+
+        @keyframes floatAnimation {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Burn Overlay */
+        .burn-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .burn-text {
+            color: #ff3d00;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(244, 67, 54, 0.8);
+        }
+
+.welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom, #0a1128, #001f3f);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+.enter-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-family: 'Georgia', serif;
+    color: #0a1128;
+    background-color: #f4ebd0;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(244, 235, 208, 0.4);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.enter-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(244, 235, 208, 0.8);
+}
+
+
+@keyframes twinkleStars {
+    0% { opacity: 0.2; transform: scale(0.98); }
+    100% { opacity: 0.7; transform: scale(1.02); }
+}
+.btn-container {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+    </style>
+</head>
+
+<div id="welcomeOverlay" class="welcome-overlay">
+        <h1 style="margin-bottom: 20px;">Letter in a Bottle</h1>
+    <p class="subtitle" style="margin-bottom: 40px;">Listen to the waves and write your thoughts...</p>
+    <button id="enterBtn" class="enter-btn">Open Journal</button>
+</div>
+
+
+    
+<body>
+
+    <div class="sea-background">
+        <h1>Letter in a Bottle</h1>
+        <p class="subtitle">A place where you can write your unspoken feelings and get the closure you deserved</p>
+
+        <main class="container">
+            <!-- Write Letter -->
+            <section class="card">
+                <h2>Write Your Letter </h2>
+                <textarea id="letterText" placeholder="Write your unsent letter here. Let it be lost at sea for strangers to find or burn to ashes to let go of the pain "></textarea>
+                <input type="text" id="letterLocation" placeholder="Where are you writing this from? ">
+
+                
+                <div class="button-group">
+                    <button id="castBtn" class="btn btn-sea"> Throw into the Sea</button>
+                    <button id="burnBtn" class="btn btn-fire"> Burn the Letter</button>
+                </div>
+            </section>
+
+<div class="sparkle-layer"></div>
+
+
+            <!-- Find -->
+<section class="card" style="text-align: center;">
+    <h2>⚓ Drifting in the Sea</h2>
+    <p class="subtitle" style="font-size: 0.9rem; margin-bottom: 20px;">Reel in a message lost to the currents...</p>
+    
+    <div class="btn-container">
+        <button id="findBtn" class="btn btn-drift">Find a Bottle</button>
+    </div>
+    
+    <div id="bottleDisplay" class="bottle-display hidden" style="text-align: left;">
+        <p id="displayMessage" class="message-content"></p>
+        <div class="bottle-meta">
+            <span id="displayLocation"> Unknown Location</span>
+            <span id="displayTime"> Just now</span>
+        </div>
+    </div>
+</section>
+
+        </main>
+    </div>
+
+    <!-- Burn Overlay -->
+    <div id="burnOverlay" class="burn-overlay hidden">
+        <p class="burn-text">Letting it go... It is gone forever.</p>
+    </div>
+
+    <div class="audio-container" style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
+        <audio id="seaSound" controls loop autoplay>
+            <source src="sea.wav" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+
+    <script>
+
+        const letterText = document.getElementById('letterText');
+        const letterLocation = document.getElementById('letterLocation');
+        const castBtn = document.getElementById('castBtn');
+        const burnBtn = document.getElementById('burnBtn');
+        const findBtn = document.getElementById('findBtn');
+        const bottleDisplay = document.getElementById('bottleDisplay');
+        const displayMessage = document.getElementById('displayMessage');
+        const displayLocation = document.getElementById('displayLocation');
+        const displayTime = document.getElementById('displayTime');
+        const burnOverlay = document.getElementById('burnOverlay');
+
+        function getOceanBottles() {
+            const saved = localStorage.getItem('oceanBottles');
+            return saved ? JSON.parse(saved) : [];
+        }
+
+        // 1. Cast Button Action
+        castBtn.addEventListener('click', () => {
+            const text = letterText.value.trim();
+            const location = letterLocation.value.trim() || 'An unknown shore';
+
+            if (!text) {
+                alert("Your letter is empty. Whisper something to the sea first!");
+                return;
+            }
+
+            const newBottle = {
+                id: Date.now(),
+                message: text,
+                location: location,
+                timestamp: Date.now()
+            };
+
+            const currentSea = getOceanBottles();
+            currentSea.push(newBottle);
+            localStorage.setItem('oceanBottles', JSON.stringify(currentSea));
+
+            letterText.value = '';
+            letterLocation.value = '';
+            alert("Your letter has been thrown into the sea.");
+        });
+
+        // 2. Burn Button Action
+        burnBtn.addEventListener('click', () => {
+            const text = letterText.value.trim();
+
+            if (!text) {
+                alert("There is nothing written to burn yet.");
+                return;
+            }
+
+            burnOverlay.classList.remove('hidden');
+            letterText.value = '';
+            letterLocation.value = '';
+
+            setTimeout(() => {
+                burnOverlay.classList.add('hidden');
+            }, 3000);
+        });
+
+        // 3. Time Tracker
+        function formatFloatingTime(pastTimestamp) {
+            const msDiff = Date.now() - pastTimestamp;
+            const totalMinutes = Math.floor(msDiff / 1000 / 60);
+            
+            if (totalMinutes < 1) return "⏳ Just cast into the waves";
+            if (totalMinutes < 60) return `⏳ Drifting for ${totalMinutes} minute${totalMinutes === 1 ? '' : 's'}`;
+            
+            const totalHours = Math.floor(totalMinutes / 60);
+            if (totalHours < 24) return `⏳ Drifting for ${totalHours} hour${totalHours === 1 ? '' : 's'}`;
+            
+            const totalDays = Math.floor(totalHours / 24);
+            return `⏳ Drifting for ${totalDays} day${totalDays === 1 ? '' : 's'}`;
+        }
+
+        // 4. Reel Button Action
+        findBtn.addEventListener('click', () => {
+            const currentSea = getOceanBottles();
+
+            if (currentSea.length === 0) {
+                alert("The sea is empty! Cast a bottle first so you can catch it.");
+                bottleDisplay.classList.add('hidden');
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * currentSea.length);
+            const chosenBottle = currentSea[randomIndex];
+
+            displayMessage.textContent = chosenBottle.message;
+            displayLocation.textContent = `From: ${chosenBottle.location}`;
+            displayTime.textContent = formatFloatingTime(chosenBottle.timestamp);
+
+            bottleDisplay.classList.remove('hidden');
+        });
+
+const welcomeOverlay = document.getElementById('welcomeOverlay');
+const enterBtn = document.getElementById('enterBtn');
+const audio = document.getElementById('seaSound');
+
+enterBtn.addEventListener('click', () => {
+    if (audio) {
+        audio.play().catch(err => console.log("Audio play blocked: ", err));
+    }
+    welcomeOverlay.style.opacity = '0';
+    setTimeout(() => {
+        welcomeOverlay.classList.add('hidden');
+    }, 500);
+});
+
+    </script>
+</body>
+</html>
