@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Letter in a Bottle</title>
     <style>
+        <script src="https://jsdelivr.net"></script>
 
           /* Base Styles */
         * {
@@ -371,6 +372,78 @@ input[type="text"]:focus {
 
     <script>
 
+    // 1. Paste your unique details from Supabase here
+    const SUPABASE_URL = "https://tgnsigyrkympwbfxosky.supabase.co/rest/v1/"; 
+    const SUPABASE_ANON_KEY = "sb_publishable_cf25omX4DxL0a5Iq7k7RjQ_Bmvs2UlM";
+
+    // 2. Initialize the connection
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ... Keep your existing element selectors here (letterText, castBtn, etc.) ...
+
+    // 3. UPDATE YOUR CAST BUTTON ACTION
+    castBtn.addEventListener('click', async () => {
+        const text = letterText.value.trim();
+        const location = letterLocation.value.trim() || 'An unknown shore';
+
+        if (!text) {
+            alert("Your letter is empty. Whisper something to the sea first!");
+            return;
+        }
+
+        castBtn.disabled = true;
+        castBtn.textContent = "Casting... 🌊";
+
+        // This pushes the message straight to your live database
+        const { error } = await supabaseClient
+            .from('bottles')
+            .insert([{ message: text, location: location }]);
+
+        castBtn.disabled = false;
+        castBtn.textContent = "Throw into the Sea";
+
+        if (error) {
+            alert("The waves were too rough! Try again.");
+        } else {
+            letterText.value = '';
+            letterLocation.value = '';
+            alert("Your letter has been thrown into the sea for real people to find!");
+        }
+    });
+
+    // ... Keep your existing Burn Button Action and Time Tracker here ...
+
+    // 4. UPDATE YOUR REEL/FIND BUTTON ACTION
+    findBtn.addEventListener('click', async () => {
+        findBtn.disabled = true;
+        findBtn.textContent = "Reeling in... 🎣";
+
+        // This grabs all available messages from your online database
+        const { data: bottles, error } = await supabaseClient
+            .from('bottles')
+            .select('*');
+
+        findBtn.disabled = false;
+        findBtn.textContent = "Find a Bottle";
+
+        if (error || !bottles || bottles.length === 0) {
+            alert("The ocean is empty right now!");
+            bottleDisplay.classList.add('hidden');
+            return;
+        }
+
+        // Picks a random bottle from your global live database
+        const randomIndex = Math.floor(Math.random() * bottles.length);
+        const chosenBottle = bottles[randomIndex];
+
+        displayMessage.textContent = chosenBottle.message;
+        displayLocation.textContent = `From: ${chosenBottle.location}`;
+        displayTime.textContent = formatFloatingTime(chosenBottle.created_at);
+
+        bottleDisplay.classList.remove('hidden');
+    });
+
+    // ... Keep your existing welcomeOverlay / audio code at the bottom ...
         const letterText = document.getElementById('letterText');
         const letterLocation = document.getElementById('letterLocation');
         const castBtn = document.getElementById('castBtn');
