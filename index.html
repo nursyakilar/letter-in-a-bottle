@@ -196,7 +196,11 @@ input[type="text"]:focus {
 }
 
 
-        .hidden { display: none !important; }
+     .hidden { 
+    display: none !important; 
+    pointer-events: none !important;
+}
+
 
 .bottle-display {
     margin-top: 25px;
@@ -368,7 +372,6 @@ input[type="text"]:focus {
             Your browser does not support the audio element.
         </audio>
     </div>
-
 
     <script>
 
@@ -548,10 +551,17 @@ const enterBtn = document.getElementById('enterBtn');
 const audio = document.getElementById('seaSound');
 
 enterBtn.addEventListener('click', () => {
+    // Safely try to play sound without freezing if it fails
     if (audio) {
-        audio.play().catch(err => console.log("Audio play blocked: ", err));
+        audio.play().catch(err => {
+            console.log("Audio play blocked by Mac security settings:", err);
+        });
     }
+    
+    // Instantly hide the welcome screen visually
     welcomeOverlay.style.opacity = '0';
+    welcomeOverlay.style.pointerEvents = 'none'; // Disables the block layer
+    
     setTimeout(() => {
         welcomeOverlay.classList.add('hidden');
     }, 500);
