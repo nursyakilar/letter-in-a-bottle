@@ -505,19 +505,23 @@ input[type="text"]:focus {
         });
 
         // 3. Time Tracker
-        function formatFloatingTime(pastTimestamp) {
-            const msDiff = Date.now() - pastTimestamp;
-            const totalMinutes = Math.floor(msDiff / 1000 / 60);
-            
-            if (totalMinutes < 1) return "⏳ Just cast into the waves";
-            if (totalMinutes < 60) return `⏳ Drifting for ${totalMinutes} minute${totalMinutes === 1 ? '' : 's'}`;
-            
-            const totalHours = Math.floor(totalMinutes / 60);
-            if (totalHours < 24) return `⏳ Drifting for ${totalHours} hour${totalHours === 1 ? '' : 's'}`;
-            
-            const totalDays = Math.floor(totalHours / 24);
-            return `⏳ Drifting for ${totalDays} day${totalDays === 1 ? '' : 's'}`;
-        }
+  function formatFloatingTime(dateString) {
+    // If dateString is missing, use the current time so it doesn't crash
+    if (!dateString) return "⏳ Just cast into the waves";
+    
+    const msDiff = Date.now() - new Date(dateString).getTime();
+    const totalMinutes = Math.floor(msDiff / 1000 / 60);
+    
+    if (totalMinutes < 1) return "⏳ Just cast into the waves";
+    if (totalMinutes < 60) return `⏳ Drifting for ${totalMinutes} minute${totalMinutes === 1 ? '' : 's'}`;
+    
+    const totalHours = Math.floor(totalMinutes / 60);
+    if (totalHours < 24) return `⏳ Drifting for ${totalHours} hour${totalHours === 1 ? '' : 's'}`;
+    
+    const totalDays = Math.floor(totalHours / 24);
+    return `⏳ Drifting for ${totalDays} day${totalDays === 1 ? '' : 's'}`;
+}
+
 
         // 4. Reel Button Action
         findBtn.addEventListener('click', () => {
